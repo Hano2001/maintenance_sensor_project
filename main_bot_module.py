@@ -10,7 +10,7 @@ with open(filename) as jfile:
 
 load_dotenv()
 token = os.getenv('TOKEN')
-bot = commands.Bot(command_prefix="#", intents=discord.Intents.all())
+bot = commands.Bot(command_prefix="/", intents=discord.Intents.all())
 intents = discord.Intents.default()
 intents.message_content = True
 
@@ -22,4 +22,18 @@ async def sensors(ctx:commands.Context):
         await ctx.send(sensor)
 
 
+@bot.command()
+async def vibration(ctx:commands.Context):
+    for sensor in sensor_data:
+        vib_level = float(sensor["vibration"])
+        if vib_level > 10:
+            status = "Critical"
+        elif vib_level > 5:
+            status = "Warning"
+        else:
+            status = "Ok"
+        report = {"Name": sensor["name"],
+                  "Vibration": vib_level,
+                  "Status":status}
+        await ctx.send(report)
 bot.run(token)

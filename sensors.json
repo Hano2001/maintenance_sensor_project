@@ -17,7 +17,7 @@
     "id": "SNS-003",
     "name": "Hydraulic Pump Unit",
     "temperature": 55.4,
-    "vibration": 0.9,
+    "vibration": 6,
     "pressure": 210.5
   },
   {
@@ -31,7 +31,7 @@
     "id": "SNS-005",
     "name": "Steam Boiler Line",
     "temperature": 145.2,
-    "vibration": 2.1,
+    "vibration": 21,
     "pressure": 320.1
   }
 ]
