@@ -36,4 +36,18 @@ async def vibration(ctx:commands.Context):
                   "Vibration": vib_level,
                   "Status":status}
         await ctx.send(report)
+
+
+@bot.command()
+async def deletesensor(ctx:commands.Context, arg):
+    for sensor in sensor_data:
+        if sensor.get("id") == arg:
+            name = sensor["name"]
+            sensor_data.remove(sensor)
+            await ctx.send(f"Sensor {name} was succesfully removed!")
+            break;
+
+
+
+
 bot.run(token)
