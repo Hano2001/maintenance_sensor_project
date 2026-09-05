@@ -23,19 +23,10 @@ async def sensors(ctx:commands.Context):
 
 
 @bot.command()
-async def vibration(ctx:commands.Context):
+async def check(ctx:commands.Context, arg):
     for sensor in sensor_data:
-        vib_level = float(sensor["vibration"])
-        if vib_level > 10:
-            status = "Critical"
-        elif vib_level > 5:
-            status = "Warning"
-        else:
-            status = "Ok"
-        report = {"Name": sensor["name"],
-                  "Vibration": vib_level,
-                  "Status":status}
-        await ctx.send(report)
+       
+        await ctx.send({"id" : sensor["id"], "name" : sensor["name"], arg:sensor[arg]})
 
 
 @bot.command()
