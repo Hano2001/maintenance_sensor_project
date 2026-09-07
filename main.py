@@ -6,10 +6,6 @@ import json
 import asyncio
 import modules
 
-filename = "sensors.json"
-with open(filename) as jfile:
-    sensor_data = json.load(jfile)
-
 load_dotenv()
 token = os.getenv('TOKEN')
 bot = commands.Bot(command_prefix="/", intents=discord.Intents.all())
@@ -22,6 +18,7 @@ async def load_extensions():
             await bot.load_extension(f"cogs.{filename[:-3]}")
 
 async def main():
+    
     async with bot:
         await load_extensions()
         await bot.start(token)
@@ -31,42 +28,7 @@ async def main():
 async def on_ready():
     print("Bot logged in!")
 
-# @bot.command()
-# async def sensors(ctx:commands.Context):
-#     for sensor in sensor_data:
 
-#         await ctx.send(sensor)
-
-
-# @bot.command()
-# async def check(ctx:commands.Context, arg):
-#     for sensor in sensor_data:
-       
-#         await ctx.send({"id" : sensor["id"], "name" : sensor["name"], arg:sensor[arg]})
-
-
-# @bot.command()
-# async def deletesensor(ctx:commands.Context, arg):
-#     for sensor in sensor_data:
-#         if sensor.get("id") == arg:
-#             name = sensor["name"]
-#             sensor_data.remove(sensor)
-#             await ctx.send(f"Sensor {name} was succesfully removed!")
-#             break;
-
-# @bot.command()
-# async def status(ctx:commands.Context,arg = ""):
-#     for sensor in sensor_data:
-#         if arg == "":
-#             status = modules.field_status_check(sensor)
-#             await ctx.send(sensor)   
-#             await ctx.send(status if status != [] else "Status OK")   
-#         else:
-#             if sensor.get("id") == arg:
-#                 status = modules.field_status_check(sensor)
-#                 await ctx.send(status if status != [] else "Status OK")
 
 
 asyncio.run(main())
-
-# bot.run(token)
