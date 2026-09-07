@@ -11,7 +11,6 @@ class Status(commands.Cog):
 
     @commands.command()
     async def sensors(self, ctx:commands.Context):
-        print("Trying to see list of sensors")
         db_connection = sqlite3.connect("./storage/database.db")
         cursor = db_connection.cursor()
         cursor.execute("SELECT * FROM SENSORS")
@@ -26,14 +25,25 @@ class Status(commands.Cog):
     #         await ctx.send({"id" : sensor["id"], "name" : sensor["name"], arg:sensor[arg]})
 
 
-    # @commands.command()
-    # async def deletesensor(self,ctx:commands.Context, arg):
-    #     for sensor in sensor_data:
-    #         if sensor.get("id") == arg:
-    #             name = sensor["name"]
-    #             sensor_data.remove(sensor)
-    #             await ctx.send(f"Sensor {name} was succesfully removed!")
-    #             break;
+    @commands.command()
+    async def deletesensor(self,ctx:commands.Context, arg):
+        db_connection = sqlite3.connect("./storage/database.db")
+        cursor = db_connection.cursor()
+        try:
+             sensor_id = arg
+             delete_query = (f"DELETE FROM SENSORS WHERE ID = {arg}")
+             cursor.execute(delete_query)
+             db_connection.commit()
+             await ctx.send("Sensor deleted!")
+        except:
+             await ctx.send("Something went wrong, sensor not deleted correctly")
+        db_connection.close()
+        # for sensor in sensor_data:
+        #     if sensor.get("id") == arg:
+        #         name = sensor["name"]
+        #         sensor_data.remove(sensor)
+        #         await ctx.send(f"Sensor {name} was succesfully removed!")
+        #         break;
 
     # @commands.command()
     # async def status(self,ctx:commands.Context,arg = ""):
