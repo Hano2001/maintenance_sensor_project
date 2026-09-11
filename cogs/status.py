@@ -32,7 +32,7 @@ class Status(commands.Cog):
         cursor = db_connection.cursor()
         try:
              sensor_id = arg
-             delete_query = (f"DELETE FROM SENSORS WHERE ID = {arg}")
+             delete_query = (f"DELETE FROM SENSORS WHERE ID = {sensor_id}")
              cursor.execute(delete_query)
              db_connection.commit()
              await ctx.send("Sensor deleted!")
@@ -45,18 +45,17 @@ class Status(commands.Cog):
         db_connection = sqlite3.connect("./storage/database.db")
         cursor = db_connection.cursor()
         search_query =  "SELECT * FROM SENSORS" if arg == "" else f"SELECT * FROM SENSORS WHERE ID = {arg}"
-        print("SEARCH: ", search_query)
+        
         cursor.execute(search_query)
         res = cursor.fetchall()
-        print(res)
-        #await ctx.send(type(res))
+        
         for sensor in res:
             res_sensor = classes.Sensor(sensor[0],sensor[1],sensor[2], sensor[3])
             sensor_status = res_sensor.field_status_check()
             await ctx.send(f"Status for sensor {sensor[0]} ({sensor[1]})")
             for status in sensor_status:
                 await ctx.send(status)
-               
+        db_connection.close()
 
     
 async def setup(bot:commands.Bot):
