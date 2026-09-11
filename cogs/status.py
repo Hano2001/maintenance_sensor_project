@@ -12,9 +12,11 @@ class Status(commands.Cog):
 
     @commands.command()
     async def sensors(self, ctx:commands.Context):
+        print("Trying to check sensors")
         db_connection = sqlite3.connect("./storage/database.db")
         cursor = db_connection.cursor()
         cursor.execute("SELECT * FROM SENSORS")
+        print(cursor.fetchall())
         for row in cursor.fetchall():
                 print(row)
                 await ctx.send(row)
@@ -42,6 +44,7 @@ class Status(commands.Cog):
 
     @commands.command()
     async def status(self,ctx:commands.Context,arg = ""):
+        print("Trying to check status")
         db_connection = sqlite3.connect("./storage/database.db")
         cursor = db_connection.cursor()
         search_query =  "SELECT * FROM SENSORS" if arg == "" else f"SELECT * FROM SENSORS WHERE ID = {arg}"
@@ -57,6 +60,14 @@ class Status(commands.Cog):
                 await ctx.send(status)
         db_connection.close()
 
+    # @commands.command()
+    # async def addsensor(self, ctx:commands.Context, arg):
+    #     db_connection = sqlite3.connect("./storage/database.db")
+    #     cursor = db_connection.cursor()
+    #     query = ""
+
+    
+         
     
 async def setup(bot:commands.Bot):
     await bot.add_cog(Status(bot))
