@@ -12,24 +12,24 @@ bot = commands.Bot(command_prefix="/", intents=discord.Intents.all())
 intents = discord.Intents.default()
 intents.message_content = True
 
-db_connection = sqlite3.connect("./storage/database.db")
-cursor = db_connection.cursor()
+# db_connection = sqlite3.connect("./storage/database.db")
+# cursor = db_connection.cursor()
 
-cursor.execute("""CREATE TABLE IF NOT EXISTS SENSORS(ID INTEGER PRIMARY KEY, NAME VARCHAR(255), TEMP REAL, VIBRATION REAL, PRESSURE REAL)""")
-cursor.execute("INSERT INTO SENSORS(NAME, TEMP, VIBRATION, PRESSURE) VALUES('Main Compressor Intake',42.5,1.2,101.3)")
-cursor.execute("INSERT INTO SENSORS(NAME, TEMP, VIBRATION, PRESSURE) VALUES('Turbine Exhaust Fan',78.1,3.8,98.7)")
-cursor.execute("INSERT INTO SENSORS(NAME, TEMP, VIBRATION, PRESSURE) VALUES('Hydraulic Pump Unit',55.4,6,210.5)")
+# cursor.execute("""CREATE TABLE IF NOT EXISTS SENSORS(ID INTEGER PRIMARY KEY, NAME VARCHAR(255), TEMP REAL, VIBRATION REAL, PRESSURE REAL)""")
+# cursor.execute("INSERT INTO SENSORS(NAME, TEMP, VIBRATION, PRESSURE) VALUES('Main Compressor Intake',42.5,1.2,101.3)")
+# cursor.execute("INSERT INTO SENSORS(NAME, TEMP, VIBRATION, PRESSURE) VALUES('Turbine Exhaust Fan',78.1,3.8,98.7)")
+# cursor.execute("INSERT INTO SENSORS(NAME, TEMP, VIBRATION, PRESSURE) VALUES('Hydraulic Pump Unit',55.4,6,210.5)")
 
-cursor.execute("SELECT name FROM pragma_table_info('SENSORS')")
+# cursor.execute("SELECT name FROM pragma_table_info('SENSORS')")
 
-print(cursor.fetchall())
+# print(cursor.fetchall())
 
-# print("Data Inserted in the table: ")
-# cursor.execute("SELECT * FROM SENSORS")
+# # print("Data Inserted in the table: ")
+# # cursor.execute("SELECT * FROM SENSORS")
 
-# Commit changes and close connection
-db_connection.commit()
-db_connection.close()
+# # Commit changes and close connection
+# db_connection.commit()
+# db_connection.close()
 
 async def load_extensions():
     for filename in os.listdir('./cogs'):

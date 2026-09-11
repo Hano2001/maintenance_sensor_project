@@ -3,6 +3,7 @@ from discord.ext import commands
 #from data import sensor_data
 import modules
 import sqlite3
+import classes
 
 class Status(commands.Cog):
     
@@ -38,24 +39,22 @@ class Status(commands.Cog):
         except:
              await ctx.send("Something went wrong, sensor not deleted correctly")
         db_connection.close()
-        # for sensor in sensor_data:
-        #     if sensor.get("id") == arg:
-        #         name = sensor["name"]
-        #         sensor_data.remove(sensor)
-        #         await ctx.send(f"Sensor {name} was succesfully removed!")
-        #         break;
 
-    # @commands.command()
-    # async def status(self,ctx:commands.Context,arg = ""):
-    #     for sensor in sensor_data:
-    #         if arg == "":
-    #             status = modules.field_status_check(sensor)
-    #             await ctx.send(sensor)   
-    #             await ctx.send(status if status != [] else "Status OK")   
-    #         else:
-    #             if sensor.get("id") == arg:
-    #                 status = modules.field_status_check(sensor)
-    #                 await ctx.send(status if status != [] else "Status OK")
+    @commands.command()
+    async def status(self,ctx:commands.Context,arg = ""):
+        db_connection = sqlite3.connect("./storage/database.db")
+        cursor = db_connection.cursor()
+        search_query =  "SELECT * FROM SENSORS" if arg == "" else f"SELECT * FROM SENSORS WHERE ID = {arg}"
+        print("SEARCH: ", search_query)
+        cursor.execute(search_query)
+        res = cursor.fetchall()
+        print(res)
+        #await ctx.send(type(res))
+        for sensor in res:
+            res_sensor = classes.Sensor(sensor[0],sensor[1],sensor[2], sensor[3])
+            sensor_status = res_sensor.field_status_check()
+            await ctx.send(f"Status for sensor {sensor[0]} ({sensor[1]})")
+            await ctx.send(sensor_status)           
 
     
 async def setup(bot:commands.Bot):
