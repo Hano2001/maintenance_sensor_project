@@ -16,7 +16,7 @@ class Status(commands.Cog):
         db_connection = sqlite3.connect("./storage/database.db")
         cursor = db_connection.cursor()
         cursor.execute("SELECT * FROM SENSORS")
-        print(cursor.fetchall())
+        db_connection.commit()
         for row in cursor.fetchall():
                 print(row)
                 await ctx.send(row)
@@ -51,7 +51,7 @@ class Status(commands.Cog):
         
         cursor.execute(search_query)
         res = cursor.fetchall()
-        
+        db_connection.commit()
         for sensor in res:
             res_sensor = classes.Sensor(sensor[0],sensor[1],sensor[2], sensor[3], sensor[4])
             sensor_status = res_sensor.field_status_check()
