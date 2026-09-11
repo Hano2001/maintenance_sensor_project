@@ -54,7 +54,9 @@ class Status(commands.Cog):
             res_sensor = classes.Sensor(sensor[0],sensor[1],sensor[2], sensor[3])
             sensor_status = res_sensor.field_status_check()
             await ctx.send(f"Status for sensor {sensor[0]} ({sensor[1]})")
-            await ctx.send(sensor_status)           
+            for status in sensor_status:
+                await ctx.send(status)
+               
 
     
 async def setup(bot:commands.Bot):
