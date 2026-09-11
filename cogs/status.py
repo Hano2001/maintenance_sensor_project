@@ -53,7 +53,7 @@ class Status(commands.Cog):
         res = cursor.fetchall()
         
         for sensor in res:
-            res_sensor = classes.Sensor(sensor[0],sensor[1],sensor[2], sensor[3])
+            res_sensor = classes.Sensor(sensor[0],sensor[1],sensor[2], sensor[3], sensor[4])
             sensor_status = res_sensor.field_status_check()
             await ctx.send(f"Status for sensor {sensor[0]} ({sensor[1]})")
             for status in sensor_status:
