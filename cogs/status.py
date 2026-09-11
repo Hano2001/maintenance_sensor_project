@@ -28,19 +28,7 @@ class Status(commands.Cog):
     #         await ctx.send({"id" : sensor["id"], "name" : sensor["name"], arg:sensor[arg]})
 
 
-    @commands.command()
-    async def deletesensor(self,ctx:commands.Context, arg):
-        db_connection = sqlite3.connect("./storage/database.db")
-        cursor = db_connection.cursor()
-        try:
-             sensor_id = arg
-             delete_query = (f"DELETE FROM SENSORS WHERE ID = {sensor_id}")
-             cursor.execute(delete_query)
-             db_connection.commit()
-             await ctx.send("Sensor deleted!")
-        except:
-             await ctx.send("Something went wrong, sensor not deleted correctly")
-        db_connection.close()
+    
 
     @commands.command()
     async def status(self,ctx:commands.Context,arg = ""):

@@ -32,17 +32,20 @@ class Admin(commands.Cog):
             await ctx.send(f"Something went wrong, database not populated: {e}")
             await ctx.send(query)
         db_connection.close()
-    @commands.command()
 
+    @commands.command()
     async def tables(self,ctx):
         try:
             db_connection = sqlite3.connect("./storage/database.db")
             cursor = db_connection.cursor()
-            cursor.execute("""CREATE TABLE IF NOT EXISTS SENSORS(ID INTEGER PRIMARY KEY, NAME VARCHAR(255), TEMP REAL, VIBRATION REAL, PRESSURE REAL)""")
+            cursor.execute("""CREATE TABLE IF NOT EXISTS SENSORS(ID INTEGER PRIMARY KEY, NAME VARCHAR(255), TEMP REAL DEFAULT 25, VIBRATION REAL DEFAULT 2.0, PRESSURE REAL DEFAULT 6.0)""")
             await ctx.send("Table created")
+            db_connection.commit()
         except Exception as e:
             await ctx.send("Something went wrong: ", e)
         db_connection.close()
+
+
     @commands.command()
     async def checktable(self,ctx):
         db_connection = sqlite3.connect("./storage/database.db")
@@ -51,6 +54,41 @@ class Admin(commands.Cog):
         print("Fetching tables...")
         print(cursor.fetchall())
         db_connection.close()
+
+
+    @commands.command()
+    async def addsensor(self, ctx, arg):
+        try:    
+            db_connection = sqlite3.connect("./storage/database.db")
+            cursor = db_connection.cursor()
+            query = f"INSERT INTO SENSORS(NAME) VALUES('{arg}')"
+            print(arg)
+            cursor.execute(query)
+            await ctx.send(f"Sensor {arg} added!")
+            db_connection.commit()
+            
+            
+        except Exception as e:
+            await ctx.send(f"Something went wrong, could add unit: {e}")
+        db_connection.close()
+
+
+    @commands.command()
+    async def deletesensor(self,ctx:commands.Context, arg):
+            db_connection = sqlite3.connect("./storage/database.db")
+            cursor = db_connection.cursor()
+            try:
+                 sensor_id = arg
+                 delete_query = (f"DELETE FROM SENSORS WHERE ID = {sensor_id}")
+                 cursor.execute(delete_query)
+                 db_connection.commit()
+                 await ctx.send("Sensor deleted!")
+            except:
+                 await ctx.send("Something went wrong, sensor not deleted correctly")
+            db_connection.close()
+
+
+
 async def setup(bot:commands.Bot):
    await bot.add_cog(Admin(bot))
 
