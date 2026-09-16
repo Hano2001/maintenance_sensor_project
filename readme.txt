@@ -1,51 +1,60 @@
-================================================================================
-MAINTENANCE SENSOR PROJECT
-================================================================================
+# Maintenance Sensor Project
 
--------------------------------------------------------------------------------
-DESCRIPTION
---------------------------------------------------------------------------------
- Description: A discord bot that handles sensors and their data using Sqlite
---------------------------------------------------------------------------------
---------------------------------------------------------------------------------
-SYSTEM REQUIREMENTS & DEPENDENCIES
---------------------------------------------------------------------------------
-discord.py, python-dotenv
---------------------------------------------------------------------------------
-4. INSTALLATION & SETUP
---------------------------------------------------------------------------------
-Step-by-step instructions to get the project running:
-1. Clone the repository or download the files.
-2. Create a virtual environment (venv) and activate it
-3. pip install -r requirements.txt
-4. Create an .env file and paste the token and name it TOKEN
-5. Configure environment variables if necessary.
+## Description
 
---------------------------------------------------------------------------------
-5. USAGE
---------------------------------------------------------------------------------
-Instructions on how to use the software or interpret the data files:
-- paste the URL and choose what channel you want the bot to work in
-- Run the main script: `python3 main.py`
-- Commands:
-    /tables - Creates a Sqlite table called sensors. - Admin only
-    /populate - populates the sensors-table with dummy data - Admin only
-    /addsensor [name] - creates a sensor with given name - Admin only
-    /deletesensor [id] - Deletes the sensor of the ID provided - Admin only
-    /sensors - Lists all the sensors and their info
-    /status [id] - If no argument is provided, lists the current status of all the sensors,
-            else current status of the sensor which ID is given in the argument.
-    /checktable - lists all created tables
+A **Discord bot** that manages sensors and their data using **SQLite**.
 
-    
+## System Requirements & Dependencies
 
---------------------------------------------------------------------------------
-6. FILE STRUCTURE
---------------------------------------------------------------------------------
-Briefly explain what each main file or folder does:
-- /database   - Contains the Sqlite database file.
-- /cogs        - Contains the different bot commands.
-- main.py     - Entry point of the application.
-- README.txt  - This documentation file.
+- **Python 3** (recommended)
+- **discord.py**
+- **python-dotenv**
 
-------------------------------------------------------------------------------
+Install Python packages via `requirements.txt` (see Installation).
+
+## Installation & Setup
+
+1. Clone the repository or download the project files.
+2. Create a virtual environment and activate it:
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate   # macOS/Linux
+   ```
+3. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+4. Create a `.env` file in the project root and add your bot token:
+   ```env
+   TOKEN=your_discord_bot_token_here
+   ```
+5. Configure any other environment variables if your setup requires them.
+
+## Usage
+
+1. Paste the bot invite URL in your browser and choose the Discord server and channel where the bot should operate.
+2. Start the bot:
+   ```bash
+   python3 main.py
+   ```
+
+### Commands
+
+| Command | Description | Access |
+|--------|-------------|--------|
+| `/tables` | Creates the SQLite table `sensors`. | Admin only |
+| `/populate` | Fills the sensors table with dummy data. | Admin only |
+| `/addsensor [name]` | Creates a sensor with the given name. | Admin only |
+| `/deletesensor [id]` | Deletes the sensor with the given ID. | Admin only |
+| `/sensors` | Lists all sensors and their information. | Everyone |
+| `/status [id]` | Without an ID: status of all sensors. With an ID: status of that sensor. | Everyone |
+| `/checktable` | Lists all created database tables. | Everyone |
+
+## File Structure
+
+| Path | Purpose |
+|------|---------|
+| `storage/` | SQLite database (`database.db`) |
+| `cogs/` | Discord slash commands and bot logic |
+| `main.py` | Application entry point |
+| `readme.txt` | Project documentation (this file) |
