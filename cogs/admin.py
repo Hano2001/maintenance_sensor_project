@@ -47,27 +47,22 @@ class Admin(commands.Cog):
 
 
     @commands.command()
-    async def checktable(self,ctx):
+    async def addsensor(self, ctx, arg):
+        
         db_connection = sqlite3.connect("./storage/database.db")
         cursor = db_connection.cursor()
-        cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
-        print("Fetching tables...")
-        print(cursor.fetchall())
-        db_connection.close()
-
-
-    @commands.command()
-    async def addsensor(self, ctx, arg):
-        try:    
-            db_connection = sqlite3.connect("./storage/database.db")
-            cursor = db_connection.cursor()
-            query = f"INSERT INTO SENSORS(NAME) VALUES('{arg}')"
-            print(arg)
-            cursor.execute(query)
+        query = f"INSERT INTO SENSORS(NAME) VALUES('{arg}')"
+        cursor.execute(query)
+        new_sensor_query = f"SELECT NAME FROM SENSORS WHERE NAME = '{arg}'"
+        cursor.execute(new_sensor_query)
+        res = cursor.fetchall()
+        try:       
+            assert res[0][0] == arg
             await ctx.send(f"Sensor {arg} added!")
             db_connection.commit()
-            
-            
+        except AssertionError as e:
+                print("Error in assert statement")
+        
         except Exception as e:
             await ctx.send(f"Something went wrong, could add unit: {e}")
         db_connection.close()
@@ -77,14 +72,24 @@ class Admin(commands.Cog):
     async def deletesensor(self,ctx:commands.Context, arg):
             db_connection = sqlite3.connect("./storage/database.db")
             cursor = db_connection.cursor()
+            sensor_id = arg
+            sensor_id_query = f"SELECT ID FROM SENSORS WHERE ID = {sensor_id}"
+            cursor.execute(sensor_id_query)
+            res = cursor.fetchall()
+            
+            
             try:
-                 sensor_id = arg
-                 delete_query = (f"DELETE FROM SENSORS WHERE ID = {sensor_id}")
-                 cursor.execute(delete_query)
-                 db_connection.commit()
-                 await ctx.send("Sensor deleted!")
+                assert res != []
+                delete_query = (f"DELETE FROM SENSORS WHERE ID = {sensor_id}")
+                cursor.execute(delete_query)
+                db_connection.commit()
+                await ctx.send("Sensor deleted!")
+            except AssertionError:
+                print("You entered an invalid ID")
+                    
             except:
-                 await ctx.send("Something went wrong, sensor not deleted correctly")
+                await ctx.send("Something went wrong, sensor not deleted correctly")
+            
             db_connection.close()
 
 

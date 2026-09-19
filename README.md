@@ -50,16 +50,16 @@ When the bot is online, run commands in Discord (messages starting with `/`).
 
 ## Commands
 
-| Command | Description | Who |
-| --- | --- | --- |
-| `/tables` | Create the `sensors` SQLite table | Server admins |
-| `/populate` | Insert sample sensor rows | Server admins |
-| `/addsensor <name>` | Add a sensor with the given name | Server admins |
-| `/deletesensor <id>` | Delete a sensor by ID | Server admins |
-| `/sensors` | List all sensors | Anyone |
-| `/status` | Status for all sensors | Anyone |
-| `/status <id>` | Status for one sensor | Anyone |
-| `/checktable` | List database tables | Anyone |
+| Command              | Description                                                                       | Who           |
+| -------------------- | --------------------------------------------------------------------------------- | ------------- |
+| `/tables`            | Create the `sensors` SQLite table                                                 | Server admins |
+| `/populate`          | Insert sample sensor rows                                                         | Server admins |
+| `/addsensor <name>`  | Add a sensor with the given name, names with more than one word must be in qoutes | Server admins |
+| `/deletesensor <id>` | Delete a sensor by ID                                                             | Server admins |
+| `/sensors`           | List all sensors                                                                  | Anyone        |
+| `/status`            | Status for all sensors                                                            | Anyone        |
+| `/status <id>`       | Status for one sensor                                                             | Anyone        |
+| `/checktable`        | List database tables                                                              | Anyone        |
 
 ## Project layout
 
