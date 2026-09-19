@@ -5,7 +5,7 @@ import modules
 import sqlite3
 import classes
 
-class Status(commands.Cog):
+class General(commands.Cog):
     
     def __init__(self,bot):
         self.bot = bot
@@ -22,13 +22,6 @@ class Status(commands.Cog):
                 await ctx.send(row)
 
         db_connection.close()
-    # @commands.command()
-    # async def check(self,ctx:commands.Context, arg, arg2):
-    #     for sensor in sensor_data:
-    #         await ctx.send({"id" : sensor["id"], "name" : sensor["name"], arg:sensor[arg]})
-
-
-    
 
     @commands.command()
     async def status(self,ctx:commands.Context,arg = ""):
@@ -48,14 +41,17 @@ class Status(commands.Cog):
                 await ctx.send(status)
         db_connection.close()
 
-    # @commands.command()
-    # async def addsensor(self, ctx:commands.Context, arg):
-    #     db_connection = sqlite3.connect("./storage/database.db")
-    #     cursor = db_connection.cursor()
-    #     query = ""
 
+    @commands.command()
+    async def checktable(self,ctx):
+        db_connection = sqlite3.connect("./storage/database.db")
+        cursor = db_connection.cursor()
+        cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
+        print("Fetching tables...")
+        print(cursor.fetchall())
+        db_connection.close()
     
          
     
 async def setup(bot:commands.Bot):
-    await bot.add_cog(Status(bot))
+    await bot.add_cog(General(bot))
