@@ -79,15 +79,15 @@ The add and delete sensor commands have assert tests that runs when command is e
 ## Post Project Reflecrions
 
 1. Planning
-   a. I should've planned more on exactly what I wanted my bot to do, and not just the commands.
-   b. I also should've focused on finding an API that would work with my bot.
+   - I should've planned more on exactly what I wanted my bot to do, and not just the commands.
+   - I also should've focused on finding an API that would work with my bot.
 
 2. Functionality I would ant to add to the Bot
-   a. Like said in the planning point, a nice API would be nice to apply.
-   b. Testing on all commands and API functionality
-   c. Would me nice to have different colors on the status, Green OK, Red Warning
-   d. Right now the different levels on the sensors are by default and hard coded, in the future I want it to generate new values to
-   mock a real sensor for vibration, temperature and pressure.
-   e. Execute a warning to the server when a sensors status is at warning
-   f. Role management, Right now it is only for admins, I don't have any testing to see if a role is not admin.
-   g. Break out the database functionality from the command files, so it is easier to read.
+   - Like said in the planning point, a nice API would be nice to apply.
+   - Testing on all commands and API functionality
+   - Would me nice to have different colors on the status, Green OK, Red Warning
+   - Right now the different levels on the sensors are by default and hard coded, in the future I want it to generate new values to
+     mock a real sensor for vibration, temperature and pressure.
+   - Execute a warning to the server when a sensors status is at warning
+   - Role management, Right now it is only for admins, I don't have any testing to see if a role is not admin.
+   - Break out the database functionality from the command files, so it is easier to read.
