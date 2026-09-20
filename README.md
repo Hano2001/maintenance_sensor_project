@@ -85,6 +85,7 @@ The add and delete sensor commands have assert tests that runs when command is e
 2. Functionality I would ant to add to the Bot
    - Like said in the planning point, a nice API would be nice to apply.
    - Testing on all commands and API functionality
+   - Module file with all functionality
    - Would me nice to have different colors on the status, Green OK, Red Warning
    - Right now the different levels on the sensors are by default and hard coded, in the future I want it to generate new values to
      mock a real sensor for vibration, temperature and pressure.
