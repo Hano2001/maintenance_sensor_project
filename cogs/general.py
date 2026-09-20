@@ -1,7 +1,4 @@
-import discord
 from discord.ext import commands
-#from data import sensor_data
-import modules
 import sqlite3
 import classes
 
@@ -12,20 +9,19 @@ class General(commands.Cog):
 
     @commands.command()
     async def sensors(self, ctx:commands.Context):
-        print("Trying to check sensors")
+        print("Checking Sensors")
         db_connection = sqlite3.connect("./storage/database.db")
         cursor = db_connection.cursor()
         cursor.execute("SELECT * FROM SENSORS")
         db_connection.commit()
         for row in cursor.fetchall():
-                print(row)
                 await ctx.send(row)
 
         db_connection.close()
 
     @commands.command()
     async def status(self,ctx:commands.Context,arg = ""):
-        print("Trying to check status")
+        print("Checking status")
         db_connection = sqlite3.connect("./storage/database.db")
         cursor = db_connection.cursor()
         search_query =  "SELECT * FROM SENSORS" if arg == "" else f"SELECT * FROM SENSORS WHERE ID = {arg}"

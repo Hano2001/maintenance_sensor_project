@@ -1,21 +1,17 @@
-import discord
 from discord.ext import commands
-#from data import sensor_data
-import modules
 import sqlite3
-import classes
 
 population = [
     {"name": 'Main Compressor Intake', "temp": 42.5, "vibration": 1.2, "pressure" :101.3 },
     {"name": 'Turbine Exhaust Fan', "temp": 78.1, "vibration": 3.8, "pressure" :98.7 },
     {"name": 'Hydraulic Pump Unit', "temp": 55.4, "vibration": 6, "pressure" :210.5 }
     ]
+
 class Admin(commands.Cog):
     @commands.command()
     async def populate(self, ctx):
         db_connection = sqlite3.connect("./storage/database.db")
         cursor = db_connection.cursor()
-        #cursor.execute("""CREATE TABLE IF NOT EXISTS SENSORS(ID INTEGER PRIMARY KEY, NAME VARCHAR(255), TEMP REAL, VIBRATION REAL, PRESSURE REAL)""")
         try:
             
             for pop in population:
@@ -96,11 +92,5 @@ class Admin(commands.Cog):
 
 async def setup(bot:commands.Bot):
    await bot.add_cog(Admin(bot))
-
-
-# cursor.execute("""CREATE TABLE IF NOT EXISTS SENSORS(ID INTEGER PRIMARY KEY, NAME VARCHAR(255), TEMP REAL, VIBRATION REAL, PRESSURE REAL)""")
-# cursor.execute("INSERT INTO SENSORS(NAME, TEMP, VIBRATION, PRESSURE) VALUES('Main Compressor Intake',42.5,1.2,101.3)")
-# cursor.execute("INSERT INTO SENSORS(NAME, TEMP, VIBRATION, PRESSURE) VALUES('Turbine Exhaust Fan',78.1,3.8,98.7)")
-# cursor.execute("INSERT INTO SENSORS(NAME, TEMP, VIBRATION, PRESSURE) VALUES('Hydraulic Pump Unit',55.4,6,210.5)")
 
 
