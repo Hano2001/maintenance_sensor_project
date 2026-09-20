@@ -36,7 +36,7 @@ The bot runs in your Discord server and exposes prefix commands (default prefix 
    TOKEN=your_discord_bot_token
    ```
 
-5. Invite the bot to your server (Discord Developer Portal → OAuth2 → URL Generator), then choose the target channel.
+5. Invite the bot to your server (Pase invite URL in browser, then choose the target channel).
 
 ## Usage
 
